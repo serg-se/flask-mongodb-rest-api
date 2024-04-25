@@ -1,0 +1,42 @@
+version: "3.9"
+
+services:
+  # NoSQL database
+  db:
+    image: mongo:latest
+    restart: always
+    environment:
+      MONGO_INITDB_DATABASE: tasks_db
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: foobarbaz
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodata:/data/db
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
+      interval: 5s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+    container_name: rest_mongo
+
+  # Flask app
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      MONGO_HOSTNAME: db
+      MONGO_PORT: 27017
+      MONGO_USERNAME: root
+      MONGO_PASSWORD: foobarbaz
+    ports:
+      - "8080:5000"
+    container_name: rest_flask_app
+
+volumes:
+  mongodata:
