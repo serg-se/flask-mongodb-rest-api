@@ -1,6 +1,6 @@
 from bson import ObjectId
 from flask import request
-from flask_restful import Resource, fields, marshal
+from flask_restx import Resource, fields, marshal
 from pydantic import ValidationError
 
 from app import api, mongo

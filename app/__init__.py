@@ -1,11 +1,11 @@
 from flask import Flask
 from flask_pymongo import PyMongo
-from flask_restful import Api
+from flask_restx import Api
 
 from config import Config
 
 mongo = PyMongo()
-api = Api()
+api = Api(title="API", version="1.0", description="Flask-RestX API.")
 
 
 def create_app(config_class=Config):
