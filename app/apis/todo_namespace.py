@@ -1,17 +1,18 @@
 from bson import ObjectId
 from flask import request
-from flask_restx import Resource, fields, marshal
+from flask_restx import Namespace, Resource, fields, marshal
 from pydantic import ValidationError
 
-from app import api, mongo
+from app import mongo
+from app.apis.validators import TaskIDModel, TaskModel, error_message
 from app.errors.handlers import json_error_response
-from app.main.validators import TaskIDModel, TaskModel, error_message
 
+ns = Namespace("Tasks", "APIs related to to-do list module", path="/todo")
 task_fields = {
     "title": fields.String,
     "description": fields.String,
     "done": fields.Boolean,
-    "uri": fields.Url("main.task"),
+    "uri": fields.Url("api.task"),
 }
 
 
@@ -82,5 +83,5 @@ class TaskAPI(Resource):
         return json_error_response(404, description=f"Task with ID {_id} not found.")
 
 
-api.add_resource(TaskListAPI, "/todo/api/v1.0/tasks", endpoint="tasks")
-api.add_resource(TaskAPI, "/todo/api/v1.0/tasks/<string:_id>", endpoint="task")
+ns.add_resource(TaskListAPI, "/api/v1.0/tasks", endpoint="tasks")
+ns.add_resource(TaskAPI, "/api/v1.0/tasks/<string:_id>", endpoint="task")
