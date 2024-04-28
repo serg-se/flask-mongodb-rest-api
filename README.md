@@ -2,22 +2,16 @@
 
 This repository offers an example of Flask application with REST API ready to be deployed on  Docker container.
 
-
 #### RESTful endpoints
 
-| HTTP Method | 	URI                                          | Description             |
-|-------------|-----------------------------------------------|-------------------------|
-| GET         | http://[hostname]/todo/api/v1.0/tasks	        | Retrieve list of tasks  |
-| GET         | 	http://[hostname]/todo/api/v1.0/tasks/[_id]	 | Retrieve a task         |
-| POST        | 	http://[hostname]/todo/api/v1.0/tasks	       | Create a new task       |
-| PUT         | 	http://[hostname]/todo/api/v1.0/tasks/[_id]	 | Update an existing task |
-
+![swagger_ui.png](swagger_ui.png)
 
 #### Tech Stack:
 
 * Web framework: Flask
 * Database: MongoDB
 * Parsing/Validation: Pydantic
+* API documentation using Swagger UI
 * Containerization: Docker
 * WSGI Server: Gunicorn
 
