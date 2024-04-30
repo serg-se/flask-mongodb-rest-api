@@ -40,7 +40,7 @@ class TaskListAPI(Resource):
         responses={
             400: "Invalid data format",
             404: "Task not found",
-            200: "Get the task list",
+            201: "Created task",
         },
     )
     @ns.marshal_with(task_model, code=201)
@@ -71,7 +71,7 @@ class TaskAPI(Resource):
         responses={
             400: "Invalid data format",
             404: "Task not found",
-            200: "Get the task list",
+            200: "Get the task",
         },
     )
     @ns.marshal_with(task_model)
@@ -96,7 +96,7 @@ class TaskAPI(Resource):
         responses={
             400: "Invalid data format",
             404: "Task not found",
-            200: "Get the task list",
+            200: "Updated task",
         },
     )
     @ns.marshal_with(task_model)
